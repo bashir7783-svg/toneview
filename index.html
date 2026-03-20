@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Greeting</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  /* Base Styles */
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite;
+    background:black;
+  }
+
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Container for text and button */
+  .greeting-container {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 3rem;
+    color: #ff4081;
+    margin: 0;
+    animation: bounce 2s infinite;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 1s ease;
+    color:red;
+  }
+
+  button {
+    display: block;
+    margin: 30px auto 0;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #ff6ec4, #7873f5);
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 110, 196, 0.7);
+  }
+
+  /* Confetti effect */
+  .confetti {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    opacity: 0.9;
+    top: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: fall linear infinite, sparkle 0.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg) translateX(0px); }
+    100% { transform: translateY(100vh) rotate(720deg) translateX(50px); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes sparkle {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+  }
+
+  /* Flower image */
+  .flower {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    max-width: 150px;
+    width: 20%;
+    height: auto;
+    z-index: 1;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    p { font-size: 1rem; }
+    .flower { max-width: 100px; width: 25%; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 2rem; }
+    p { font-size: 0.9rem; }
+    button { padding: 10px 20px; font-size: 0.9rem; }
+    .flower { max-width: 80px; width: 30%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="greeting-container">
+
+
+  <img class="flower" src="https://pngimg.com/d/white_roses_PNG4008.png" alt="Flower">
+  <h1>Eid Mubarak 🌙</h1>
+  <p id="message">Dear Sumi <br>Wishing you boundless joy, deep love, and enduring happiness.
+    <br>especially to your cherished one.
+  </p>
+  <button onclick="showMessage()">Open Your Surprise</button>
+</div>
+
+<script>
+  const colors = ["#ff4081","#ff6ec4","#ffeb3b","#00e676","#2979ff","#ff9100","#9c27b0","#00bfa5"];
+
+  // Show hidden message on button click
+  function showMessage() {
+    const p = document.getElementById('message');
+    p.style.opacity = 1;
+    startConfetti();
+  }
+
+  // Continuously generate tiny papers
+  function startConfetti() {
+    const maxConfetti = 500; // safe number for performance
+    for (let i = 0; i < maxConfetti; i++) createConfetti();
+    setInterval(() => {
+      createConfetti();
+    }, 50); // generate small bursts continuously
+  }
+
+  function createConfetti() {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+    const size = Math.random() * 5 + 2;
+    confetti.style.width = confetti.style.height = size + 'px';
+    confetti.style.animationDuration = Math.random() * 3 + 3 + 's';
+    confetti.style.transform = `rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(confetti);
+
+    setTimeout(() => {
+      confetti.remove();
+    }, 6000);
+  }
+</script>
+
+</body>
+</html>
